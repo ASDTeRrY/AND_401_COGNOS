@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hola a todos"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Android OS asdasdasdad"
+                android:background="@color/colorFondo1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Android OS"
+                android:background="#AAA"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hola a todos"
+                android:textStyle="bold|italic"
+                android:textColor="@color/colorAccent"
+                android:textAllCaps="true"
+                android:gravity="center_horizontal"
+                android:fontFamily="monospace"/>
+
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Margenes"
+                android:textStyle="bold"
+                android:textSize="25sp"
+                android:textColor="@color/colorPrimary"
+                android:textAllCaps="true"
+                android:fontFamily="monospace"
+                android:background="@color/colorAccent"
+
+                android:paddingLeft="20dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="5dp"
+                android:paddingRight="15dp"
+
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hola a todos"
+                android:textStyle="bold|italic"
+                android:textColor="@color/colorAccent"
+                android:textAllCaps="true"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/colorPrimary"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hola a todos"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Android OS asdasdasdad"
+                android:background="@color/colorFondo1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Android OS"
+                android:background="#AAA"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hola a todos"
+                android:textStyle="bold|italic"
+                android:textColor="@color/colorAccent"
+                android:textAllCaps="true"
+                android:gravity="center_horizontal"
+                android:fontFamily="monospace"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Margenes"
+                android:textStyle="bold"
+                android:textSize="25sp"
+                android:textColor="@color/colorPrimary"
+                android:textAllCaps="true"
+                android:fontFamily="monospace"
+                android:background="@color/colorAccent"
+
+                android:paddingLeft="20dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="5dp"
+                android:paddingRight="15dp"
+
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hola a todos"
+                android:textStyle="bold|italic"
+                android:textColor="@color/colorAccent"
+                android:textAllCaps="true"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/colorPrimary"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hola a todos"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Android OS asdasdasdad"
+                android:background="@color/colorFondo1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Android OS"
+                android:background="#AAA"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hola a todos"
+                android:textStyle="bold|italic"
+                android:textColor="@color/colorAccent"
+                android:textAllCaps="true"
+                android:gravity="center_horizontal"
+                android:fontFamily="monospace"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Margenes"
+                android:textStyle="bold"
+                android:textSize="25sp"
+                android:textColor="@color/colorPrimary"
+                android:textAllCaps="true"
+                android:fontFamily="monospace"
+                android:background="@color/colorAccent"
+
+                android:paddingLeft="20dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="5dp"
+                android:paddingRight="15dp"
+
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hola a todos"
+                android:textStyle="bold|italic"
+                android:textColor="@color/colorAccent"
+                android:textAllCaps="true"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/colorPrimary"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hola a todos"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Android OS asdasdasdad"
+                android:background="@color/colorFondo1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Android OS"
+                android:background="#AAA"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hola a todos"
+                android:textStyle="bold|italic"
+                android:textColor="@color/colorAccent"
+                android:textAllCaps="true"
+                android:gravity="center_horizontal"
+                android:fontFamily="monospace"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Margenes"
+                android:textStyle="bold"
+                android:textSize="25sp"
+                android:textColor="@color/colorPrimary"
+                android:textAllCaps="true"
+                android:fontFamily="monospace"
+                android:background="@color/colorAccent"
+
+                android:paddingLeft="20dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="5dp"
+                android:paddingRight="15dp"
+
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hola a todos"
+                android:textStyle="bold|italic"
+                android:textColor="@color/colorAccent"
+                android:textAllCaps="true"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/colorPrimary"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hola a todos"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Android OS asdasdasdad"
+                android:background="@color/colorFondo1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Android OS"
+                android:background="#AAA"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hola a todos"
+                android:textStyle="bold|italic"
+                android:textColor="@color/colorAccent"
+                android:textAllCaps="true"
+                android:gravity="center_horizontal"
+                android:fontFamily="monospace"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Margenes"
+                android:textStyle="bold"
+                android:textSize="25sp"
+                android:textColor="@color/colorPrimary"
+                android:textAllCaps="true"
+                android:fontFamily="monospace"
+                android:background="@color/colorAccent"
+
+                android:paddingLeft="20dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="5dp"
+                android:paddingRight="15dp"
+
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hola a todos"
+                android:textStyle="bold|italic"
+                android:textColor="@color/colorAccent"
+                android:textAllCaps="true"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/colorPrimary"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hola a todos"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Android OS asdasdasdad"
+                android:background="@color/colorFondo1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Android OS"
+                android:background="#AAA"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hola a todos"
+                android:textStyle="bold|italic"
+                android:textColor="@color/colorAccent"
+                android:textAllCaps="true"
+                android:gravity="center_horizontal"
+                android:fontFamily="monospace"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Margenes"
+                android:textStyle="bold"
+                android:textSize="25sp"
+                android:textColor="@color/colorPrimary"
+                android:textAllCaps="true"
+                android:fontFamily="monospace"
+                android:background="@color/colorAccent"
+
+                android:paddingLeft="20dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="5dp"
+                android:paddingRight="15dp"
+
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hola a todos"
+                android:textStyle="bold|italic"
+                android:textColor="@color/colorAccent"
+                android:textAllCaps="true"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/colorPrimary"/>
+
+        </LinearLayout>
+    </ScrollView>
