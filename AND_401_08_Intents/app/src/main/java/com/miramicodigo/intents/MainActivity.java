@@ -6,64 +6,10 @@ import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-    }
-
-    public void abrirActivity() {
-
-    }
-
-    public void enviarDatos() {
-
-    }
-
-    public void devolverDatos() {
-
-    }
-
-    public void abrirMarcadoTelefonico() {
-
-    }
-
-    public void llamar() {
-
-    }
-
-    public void abrirGoogleMaps() {
-
-    }
-
-    public void abrirStreetView(){
-
-    }
-
-    public void abrirPaginaWeb() {
-
-    }
-
-    public void abrirBuscador() {
-
-    }
-
-    public void compartirTexto() {
-
-    }
-
-    public void enviarMail() {
-
-    }
-
-    public void asignarWallpaper() {
-
-    }
-
-    public void abrirApp() {
 
     }
 
