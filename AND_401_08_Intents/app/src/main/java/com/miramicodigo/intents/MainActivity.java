@@ -1,6 +1,7 @@
 package com.miramicodigo.intents;
 
 import android.Manifest;
+import android.app.SearchManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -147,20 +148,63 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
     public void abrirGoogleMaps() {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse("geo:-16.508355,-68.126270"));
+        startActivity(intent);
     }
+
     public void abrirStreetView() {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse("google.streetview:cbll=-16.508355,-68.126270"));
+        startActivity(intent);
     }
+
     public void abrirPaginaWeb() {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse("https://www.google.com"));
+        startActivity(intent);
     }
+
     public void abrirBuscador() {
+        Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
+        intent.putExtra(SearchManager.QUERY, "Android");
+        startActivity(intent);
     }
+
     public void compartirTexto() {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, "Hola a todos");
+        startActivity(intent);
     }
+
     public void enviarEmail() {
+        String [] TO = {"lizarraga.gux@gmail.com, gustavo@gmail.com"};
+        String [] CC = {"android@gmail.com"};
+        String asunto = "Correo importante";
+        String contenido = "Este correo electronico es de prueba";
+
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setType("text/plain");
+        intent.setData(Uri.parse("mailto:"));
+        intent.putExtra(Intent.EXTRA_EMAIL, TO);
+        intent.putExtra(Intent.EXTRA_CC, CC);
+        intent.putExtra(Intent.EXTRA_SUBJECT, asunto);
+        intent.putExtra(Intent.EXTRA_TEXT, contenido);
+
+        startActivity(Intent.createChooser(intent, "Enviar correo (demo)"));
     }
+
     public void abrirApp() {
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.setClassName("com.cognos.aplicacion5",
+                             "com.cognos.aplicacion5.MainActivity");
+        startActivity(intent);
     }
+
     public void asignarWallpaper() {
+        Intent intent = new Intent(Intent.ACTION_SET_WALLPAPER);
+        startActivity(Intent.createChooser(intent, "Cambiar fondo de pantalla"));
     }
 
     public void abrirActivity() {
