@@ -12,7 +12,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private ListView lvDatos;
     private Activity activity;
@@ -24,16 +24,37 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        datos = new ArrayList<Pokemon>();
+        lvDatos = (ListView) findViewById(R.id.lvLista);
+        activity = this;
+
+        llenarPokemones();
+
+        adaptador = new CustomAdapter(activity, datos);
+        lvDatos.setAdapter(adaptador);
+        lvDatos.setOnItemClickListener(this);
+
     }
 
     public void llenarPokemones() {
         Resources resources = getResources();
+        String [] arrayNombres = resources.getStringArray(R.array.nombre);
+        String [] arrayHabilidades = resources.getStringArray(R.array.tipos);
+        TypedArray arrayImagenes = resources.obtainTypedArray(R.array.image);
 
-
+        for (int i=0; i < arrayNombres.length; i++) {
+            Pokemon poke = new Pokemon(
+                    arrayNombres[i], arrayHabilidades[i],
+                    arrayImagenes.getResourceId(i, -1)
+            );
+            datos.add(poke);
+        }
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        Intent intent = new Intent(this, DetalleActivity.class);
+        intent.putExtra("poke", datos.get(position));
+        startActivity(intent);
     }
 }

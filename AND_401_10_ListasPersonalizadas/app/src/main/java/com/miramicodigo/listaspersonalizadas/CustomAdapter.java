@@ -2,10 +2,13 @@ package com.miramicodigo.listaspersonalizadas;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -45,14 +48,31 @@ public class CustomAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
+        Typeface tfBold = Typeface.createFromAsset(context.getAssets(),
+                "fonts/roboto_black.ttf");
+        Typeface tfThin = Typeface.createFromAsset(context.getAssets(),
+                "fonts/roboto_thin.ttf");
+
+        viewHolder.itemNombre.setTypeface(tfBold);
+        viewHolder.itemHabilidades.setTypeface(tfThin);
+
+        Pokemon temp = (Pokemon) getItem(position);
+        viewHolder.itemNombre.setText(temp.getNombre());
+        viewHolder.itemHabilidades.setText(temp.getHabilidades());
+        viewHolder.itemImagen.setImageResource(temp.getImagen());
 
         return convertView;
     }
 
     private class ViewHolder {
+        TextView itemNombre;
+        TextView itemHabilidades;
+        ImageView itemImagen;
 
         public ViewHolder(View view) {
-
+            itemNombre = (TextView) view.findViewById(R.id.tvTitulo);
+            itemHabilidades = (TextView) view.findViewById(R.id.tvSubtitulo);
+            itemImagen = (ImageView) view.findViewById(R.id.ivImagen);
         }
     }
 
