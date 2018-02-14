@@ -13,6 +13,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     private FloatingActionButton fab;
+
     private FloatingActionButton fab1;
     private FloatingActionButton fab2;
     private FloatingActionButton fab3;
@@ -34,11 +35,56 @@ public class MainActivity extends AppCompatActivity {
 
         rootLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
 
+        fab = (FloatingActionButton) findViewById(R.id.fabAction);
+
+        show_fab_1 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab1_show);
+        show_fab_2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab2_show);
+        show_fab_3 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab3_show);
+        hide_fab_1 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab1_hide);
+        hide_fab_2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab2_hide);
+        hide_fab_3 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab3_hide);
 
         fab1 = (FloatingActionButton) findViewById(R.id.fab_1);
         fab2 = (FloatingActionButton) findViewById(R.id.fab_2);
         fab3 = (FloatingActionButton) findViewById(R.id.fab_3);
 
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(FAB_Status == false) {
+                    expandFAB();
+                    FAB_Status = true;
+                } else {
+                    hideFAB();
+                    FAB_Status = false;
+                }
+            }
+        });
+
+        fab1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),
+                        "Click 1", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        fab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),
+                        "Click 2", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        fab3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),
+                        "Click 3", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
