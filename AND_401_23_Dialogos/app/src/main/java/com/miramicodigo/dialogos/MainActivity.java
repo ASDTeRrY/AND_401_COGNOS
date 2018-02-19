@@ -51,18 +51,21 @@ public class MainActivity extends AppCompatActivity {
         btnDialogoConListaRadio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                crearDialogoConListaRadio().show();
             }
         });
 
         btnDialogoConListaCheckbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                crearDialogoCheckBox().show();
             }
         });
 
         btnDialogoPersonalizado.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                crearDialogoPersonalizado();
             }
         });
 
@@ -117,6 +120,99 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
+        return alertDialog.create();
+    }
+
+    public AlertDialog crearDialogoConListaRadio() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        final String [] opciones = {"Opcion 1", "Opcion 2", "Opcion 3", "Opcion 4"};
+        posicion = 0;
+        alertDialog.setTitle("Seleccione una opcion")
+                .setSingleChoiceItems(opciones, 0, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        posicion = i;
+                    }
+                })
+                .setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(getApplicationContext(),
+                                "Seleccionaste: "+ opciones[posicion], Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+        return alertDialog.create();
+    }
+
+    public AlertDialog crearDialogoCheckBox() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        final String[] opciones = {"Desarrollo Android", "Desarrollo iOS", "Back-end", "Front-end"};
+        final ArrayList<Integer> itemsSeleccionados = new ArrayList<Integer>();
+
+        alertDialog.setTitle("Seleccione sus Skills")
+                .setMultiChoiceItems(opciones, null, new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i, boolean b) {
+                        if(b) {
+                            itemsSeleccionados.add(i);
+                        } else {
+                            if(itemsSeleccionados.contains(i)) {
+                                itemsSeleccionados.remove(Integer.valueOf(i));
+                            }
+                        }
+                    }
+                })
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String res = "";
+                        for (int j = 0; j < itemsSeleccionados.size(); j++) {
+                            res = res +"\n- "+opciones[itemsSeleccionados.get(j)];
+                        }
+                        Toast.makeText(getApplicationContext(), res, Toast.LENGTH_LONG).show();
+                    }
+                });
+        return alertDialog.create();
+    }
+
+    public AlertDialog crearDialogoPersonalizado() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setCancelable(false);
+        LayoutInflater inflater = getLayoutInflater();
+        View v = inflater.inflate(R.layout.custom_dialog, null);
+        alertDialog.setView(v);
+
+        btnCrear = v.findViewById(R.id.btnCrear);
+        btnEntrar = v.findViewById(R.id.btnEntrar);
+        etNombre = v.findViewById(R.id.etNombre);
+        etContrasenia = v.findViewById(R.id.etContrasenia);
+        cbRecordar = v.findViewById(R.id.cbRecordar);
+
+        final AlertDialog dialog = alertDialog.show();
+
+        btnCrear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        res = "";
+        btnEntrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                res = "Nombre: "+etNombre.getText().toString()+
+                        "\nRecordar: "+cbRecordar.isChecked();
+                Toast.makeText(getApplicationContext(), res, Toast.LENGTH_SHORT).show();
+            }
+        });
+
         return alertDialog.create();
     }
 
