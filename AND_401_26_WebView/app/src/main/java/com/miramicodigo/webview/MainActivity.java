@@ -26,11 +26,24 @@ public class MainActivity extends AppCompatActivity {
         imageButton = (ImageButton) findViewById(R.id.ibIr);
         etURL = (EditText) findViewById(R.id.etURL);
 
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                irPaginaWeb(etURL.getText().toString());
+                hideSoftKeyboard();
+            }
+        });
 
     }
 
     public void irPaginaWeb (String url) {
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
 
+        webView.setWebViewClient(new WebViewClient());
+        webView.getSettings().setBuiltInZoomControls(true);
+        webView.setInitialScale(25);
+        webView.loadUrl("http://"+url);
     }
 
     public void hideSoftKeyboard() {
