@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements DateTimeInterface{
 
     private ImageButton ibFecha, ibHora;
     private EditText etFecha, etHora;
@@ -40,11 +40,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showTimePickerDialog(View v) {
-
+        DialogFragment dialogFragment = new TimePickerFragment();
+        dialogFragment.show(getFragmentManager(), "timePicker");
     }
 
     public void showDatePickerDialog(View v) {
-
+        DialogFragment dialogFragment = new DatePickerFragment();
+        dialogFragment.show(getFragmentManager(), "datePicker");
     }
 
+    @Override
+    public void obtieneFecha(String date) {
+        etFecha.setText(date);
+    }
+
+    @Override
+    public void obtieneHora(String hour) {
+        etHora.setText(hour);
+    }
 }
