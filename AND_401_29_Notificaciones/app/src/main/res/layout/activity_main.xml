@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:gravity="center">
+
+    <Button
+        android:id="@+id/btnToastSimple"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Toast simple"/>
+
+    <Button
+        android:id="@+id/btnToastGravedad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Toast gravedad"/>
+
+    <Button
+        android:id="@+id/btnToastPersonalizado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Toast personalizado"/>
+
+    <Button
+        android:id="@+id/btnNotificacionEnBarra"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Notificacion en Barra"/>
+
+    <Button
+        android:id="@+id/simple_notification"
+        android:text="Simple notification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </Button>
+
+    <Button
+        android:id="@+id/big_notification"
+        android:text="Expandable with buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </Button>
+
+    <Button
+        android:id="@+id/progress_notification"
+        android:text="Progress notification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </Button>
+
+    <Button
+        android:id="@+id/button_notifcation"
+        android:text="Button notification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </Button>
+
+
+</LinearLayout>
