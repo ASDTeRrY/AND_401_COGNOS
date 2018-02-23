@@ -1,33 +1,19 @@
 package com.miramicodigo.notificaciones;
 
 import android.app.Activity;
-import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.VibrationEffect;
-import android.os.Vibrator;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.RemoteViews;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.Random;
 
 public class MainActivity extends Activity implements View.OnClickListener {
@@ -37,189 +23,159 @@ public class MainActivity extends Activity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initUI();
-        mNotificationManager =
-                (NotificationManager) getApplicationContext().getSystemService(NOTIFICATION_SERVICE);
-    }
 
+        initUI();
+
+        mNotificationManager = (NotificationManager)
+                getApplicationContext().getSystemService(NOTIFICATION_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("my_channel_01",
+                    "Channel human readable title", NotificationManager.IMPORTANCE_DEFAULT);
+            mNotificationManager.createNotificationChannel(channel);
+        }
+    }
 
     private void initUI () {
         setContentView(R.layout.activity_main);
-        findViewById(R.id.simple_notification).setOnClickListener(this);
-        findViewById(R.id.big_notification).setOnClickListener(this);
-        findViewById(R.id.progress_notification).setOnClickListener(this);
-        findViewById(R.id.button_notifcation).setOnClickListener(this);
+        findViewById(R.id.btnNotificacionSimple).setOnClickListener(this);
+        findViewById(R.id.btnNotificacionGrande).setOnClickListener(this);
+        findViewById(R.id.btnNotificacionProgreso).setOnClickListener(this);
+        findViewById(R.id.btnNotificacionAcciones).setOnClickListener(this);
     }
-
 
     @Override
     public void onClick (View v) {
         switch (v.getId()) {
-
-            case R.id.simple_notification:
+            case R.id.btnNotificacionSimple:
                 createSimpleNotification(this);
                 break;
-
-            case R.id.big_notification:
+            case R.id.btnNotificacionGrande:
                 createExpandableNotification(this);
                 break;
-
-            case R.id.progress_notification:
+            case R.id.btnNotificacionProgreso:
                 createProgressNotification(this);
                 break;
-
-            case R.id.button_notifcation:
+            case R.id.btnNotificacionAcciones:
                 createButtonNotification(this);
+                break;
         }
-
     }
 
-    /**
-     * Shows a simple notification
-     * @param context aplication context
-     */
     public void createSimpleNotification(Context context) {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
+        NotificationCompat.Builder notification = new NotificationCompat.Builder(context);
 
-        builder.setSmallIcon(android.R.drawable.ic_dialog_alert);
+        notification.setSmallIcon(R.drawable.ic_android_black_24dp);
 
         Intent intent = new Intent(context, ResultadoActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+        PendingIntent pendingIntent =
+                PendingIntent.getActivity(context, 0, intent, 0);
 
-        builder.setContentIntent(pendingIntent);
-        builder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher));
-        builder.setContentTitle("Titulo de notificacion");
-        builder.setContentText("Contenido notificacion");
-        builder.setSubText("Sub texto pequeño");
+        notification.setContentIntent(pendingIntent);
+        notification.setLargeIcon(BitmapFactory.decodeResource(
+                context.getResources(), R.drawable.ic_android_black_24dp));
+        notification.setContentTitle("Titulo Notificacion");
+        notification.setContentText("Aca colocamos en contenido de la notificacion");
+        notification.setSubText("Contenido Subtitulo notificacion");
 
-        NotificationManager notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
-
-        notificationManager.notify(1, builder.build());
+        mNotificationManager.notify(1, notification.build());
     }
 
-
     public void createExpandableNotification (Context context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            // Building the expandable content
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
             String lorem = context.getResources().getString(R.string.long_lorem);
             String [] content = lorem.split("\\.");
 
-            inboxStyle.setBigContentTitle("This is a big title");
+            inboxStyle.setBigContentTitle("Titulo Notificacion");
             for (String line : content) {
                 inboxStyle.addLine(line);
             }
 
-            // Building the notification
-            NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(context)
-                    .setSmallIcon(R.mipmap.ic_launcher) // notification icon
-                    .setContentTitle("Expandable notification") // title of notification
-                    .setContentText("This is an example of an expandable notification") // text inside the notification
-                    .setStyle(inboxStyle); // adds the expandable content to the notification
-
-            mNotificationManager.notify(11, nBuilder.build());
-
+            NotificationCompat.Builder notification = new NotificationCompat.Builder(context)
+                    .setSmallIcon(R.drawable.ic_android_black_24dp)
+                    .setContentTitle("Expandable Notificacion")
+                    .setContentText("Esto es el contendio de mi notificacion")
+                    .setStyle(inboxStyle);
+            mNotificationManager.notify(2, notification.build());
         } else {
-            Toast.makeText(context, "Can't show", Toast.LENGTH_LONG).show();
+
         }
     }
 
-
-    /**
-     * Show a determinate and undeterminate progress notification
-     * @param context, activity context
-     */
     public void createProgressNotification (final Context context) {
-
-        // used to update the progress notification
         final int progresID = new Random().nextInt(1000);
 
-        // building the notification
-        final NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(context)
-                .setSmallIcon(android.R.drawable.ic_notification_clear_all)
-                .setContentTitle("Progres notification")
-                .setContentText("Now waiting")
-                .setTicker("Progress notification created")
+        final NotificationCompat.Builder notification = new NotificationCompat.Builder(context)
+                .setSmallIcon(R.drawable.ic_android_black_24dp)
+                .setContentTitle("Titulo Notificacion")
+                .setContentText("Contenido Notificacion")
+                .setTicker("Notificacion de progreso creada")
                 .setUsesChronometer(true)
                 .setProgress(100, 0, true);
-
-
 
         AsyncTask<Integer, Integer, Integer> downloadTask = new AsyncTask<Integer, Integer, Integer>() {
             @Override
             protected void onPreExecute () {
                 super.onPreExecute();
-                mNotificationManager.notify(progresID, nBuilder.build());
+                mNotificationManager.notify(progresID, notification.build());
             }
 
             @Override
             protected Integer doInBackground (Integer... params) {
                 try {
-                    // Sleeps 2 seconds to show the undeterminated progress
                     Thread.sleep(5000);
-
-                    // update the progress
                     for (int i = 0; i < 101; i+=5) {
-                        nBuilder
-                                .setContentTitle("Progress running...")
-                                .setContentText("Now running...")
+                        notification
+                                .setContentTitle("En progreso...")
+                                .setContentText("Se esta ejecutando...")
                                 .setProgress(100, i, false)
-                                .setSmallIcon(android.R.drawable.ic_notification_overlay)
-                                .setContentInfo(i + " %");
-
-                        // use the same id for update instead created another one
-                        mNotificationManager.notify(progresID, nBuilder.build());
+                                .setSmallIcon(R.mipmap.ic_launcher)
+                                .setContentInfo(i + "%");
+                        mNotificationManager.notify(progresID, notification.build());
                         Thread.sleep(500);
                     }
 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-
                 return null;
             }
-
 
             @Override
             protected void onPostExecute (Integer integer) {
                 super.onPostExecute(integer);
-
-                nBuilder.setContentText("Progress finished :D")
-                        .setContentTitle("Progress finished !!")
-                        .setTicker("Progress finished !!!")
-                        .setSmallIcon(android.R.drawable.ic_dialog_alert)
+                notification
+                        .setContentTitle("Progreso terminado")
+                        .setContentText("El progreso termino.")
+                        .setTicker("Termino el progreso.")
+                        .setSmallIcon(R.drawable.ic_android_black_24dp)
                         .setUsesChronometer(false);
-
-                mNotificationManager.notify(progresID, nBuilder.build());
+                mNotificationManager.notify(progresID, notification.build());
             }
         };
-
-        // Executes the progress task
         downloadTask.execute();
     }
 
 
     public void createButtonNotification (Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            // Prepare intent which is triggered if the  notification button is pressed
             Intent intent = new Intent(context, ResultadoActivity.class);
-            PendingIntent pIntent = PendingIntent.getActivity(context, 0, intent, 0);
+            PendingIntent pendingIntent =
+                    PendingIntent.getActivity(context, 0, intent, 0);
+            NotificationCompat.Builder notification = new NotificationCompat.Builder(context)
+                    .setSmallIcon(R.drawable.ic_android_black_24dp)
+                    .setContentTitle("Titulo notificacion con botones")
+                    .setContentText("Aca abajo estan los botones")
+                    .addAction(R.drawable.ic_android_black_24dp, "Aceptar", pendingIntent)
+                    .addAction(R.mipmap.ic_launcher, "Cancelar", pendingIntent);
 
-            // Building the notifcation
-            NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(context)
-                    .setSmallIcon(R.mipmap.ic_launcher) // notification icon
-                    .setContentTitle("Button notification") // notification title
-                    .setContentText("Expand to show the buttons...") // content text
-                    .setTicker("Showing button notification") // status bar message
-                    .addAction(android.R.drawable.ic_dialog_email, "Accept", pIntent) // accept notification button
-                    .addAction(android.R.drawable.ic_dialog_info, "Cancel", pIntent); // cancel notification button
-
-            mNotificationManager.notify(1001, nBuilder.build());
-
+            mNotificationManager.notify(1000, notification.build());
         } else {
-            Toast.makeText(context, "You need a higher version", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Necesitas una version mas alta", Toast.LENGTH_LONG).show();
         }
     }
+
 }
 
 
