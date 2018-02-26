@@ -1,6 +1,7 @@
 package com.miramicodigo.archivos;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Environment;
@@ -13,6 +14,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.nio.Buffer;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private EditText etInterno;
@@ -22,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btnInternoLeer;
     private Button btnExternoGuardar;
     private Button btnExternoLeer;
+
+    // /data/data/nombrepaquete/
 
     private String nombreArchivoInterno = "prueba_archivo_int.txt";
     private String nombreArchivoExterno = "prueba_archivo_ext.txt";
@@ -38,6 +49,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnInternoLeer.setOnClickListener(this);
         btnExternoGuardar.setOnClickListener(this);
         btnExternoLeer.setOnClickListener(this);
+
+        verificaPermiso();
+
     }
 
     public void initUI(){
@@ -54,49 +68,92 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btnInternoGuardar:
-
+                guardarInterno();
                 break;
             case R.id.btnInternoLeer:
-
+                leerInterno();
                 break;
             case R.id.btnExternoGuardar:
-
+                guardarExterno();
                 break;
             case R.id.btnExternoLeer:
-
+                etExterno.setText(leerExterno());
                 break;
         }
     }
 
     public void guardarInterno() {
-
+        if(!etInterno.getText().toString().equals("")) {
+            try {
+                OutputStreamWriter output = new OutputStreamWriter(
+                        openFileOutput(nombreArchivoInterno, Context.MODE_PRIVATE));
+                output.write(etInterno.getText().toString());
+                output.close();
+                etInterno.setText("");
+                Toast.makeText(getApplicationContext(),
+                        "Se guardo exitosamente", Toast.LENGTH_SHORT).show();
+            } catch(Exception e){
+                System.out.println("Error: "+e.getMessage());
+            }
+        }else {
+            Toast.makeText(getApplicationContext(),
+                    "Debe ingresar datos para guardar", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void leerInterno() {
-
+        try {
+            BufferedReader br = new BufferedReader(
+                    new InputStreamReader(openFileInput(nombreArchivoInterno)));
+            String cadena, resultado = "";
+            while ((cadena = br.readLine()) != null) {
+                resultado = resultado + cadena + "\n";
+            }
+            br.close();
+            etInterno.setText(resultado);
+        } catch(Exception e){
+            System.out.println("Error: "+e.getMessage());
+        }
     }
 
     public void guardarExterno() {
-        verificaPermiso();
         if (!etExterno.getText().toString().equals("")) {
             boolean sdDisponible = false;
             boolean sdAccesoEscritura = false;
             String state = Environment.getExternalStorageState();
             if (Environment.MEDIA_MOUNTED.equals(state)){
-
+                sdDisponible = true;
+                sdAccesoEscritura = true;
             }else {
                 if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
-
+                    sdDisponible = true;
+                    sdAccesoEscritura = false;
                 } else {
-
+                    sdDisponible = false;
+                    sdAccesoEscritura = false;
                 }
             }
             if (sdDisponible && sdAccesoEscritura) {
                 try {
-
-
-
-
+                    File dir = new File(
+                            Environment.getExternalStorageDirectory()+ nombreCarpeta);
+                    if(!dir.exists()){
+                        dir.mkdirs();
+                    }
+                    File file = new File(dir, nombreArchivoExterno);
+                    String val = etExterno.getText().toString();
+                    try {
+                        OutputStreamWriter osw = new OutputStreamWriter(
+                                new FileOutputStream(file, false));
+                        osw.write(val);
+                        osw.close();
+                        etExterno.setText("");
+                        Toast.makeText(getApplicationContext(),
+                                "Se guardo en memoria externa exitosamente",
+                                Toast.LENGTH_SHORT).show();
+                    } catch (Exception e){
+                        System.out.println("Error: "+e.getMessage());
+                    }
                 } catch (Exception e) {
                     System.out.println("Error: "+e.getMessage());
                 }
@@ -112,8 +169,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public String leerExterno() {
         try {
-
-            return "";
+            File file = Environment.getExternalStorageDirectory();
+            File f = new File(file.getAbsolutePath(), nombreCarpeta + nombreArchivoExterno);
+            BufferedReader br = new BufferedReader(
+                    new InputStreamReader(new FileInputStream(f))
+            );
+            String cadena, resultado = "";
+            while((cadena = br.readLine()) != null) {
+                resultado = resultado + cadena + "\n";
+            }
+            br.close();
+            return resultado;
         }catch (Exception e) {
             System.out.println("Error: "+e.getMessage());
             return "";
