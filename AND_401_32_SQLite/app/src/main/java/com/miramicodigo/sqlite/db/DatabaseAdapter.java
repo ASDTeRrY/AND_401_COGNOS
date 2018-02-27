@@ -2,6 +2,7 @@ package com.miramicodigo.sqlite.db;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -31,8 +32,32 @@ public class DatabaseAdapter{
         return db.insert("persona", null, contentValues);
     }
 
+    public int actualizarPersona(long id, String nombre, long telefono,
+                                 String correo, String genero) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("nombre", nombre);
+        contentValues.put("telefono", telefono);
+        contentValues.put("correo", correo);
+        contentValues.put("genero", genero);
+        return db.update("persona", contentValues, "_id=?", new String[]{id+""});
+    }
 
+    public boolean eliminarPersona(long id) {
+        return db.delete("persona", "_id="+id, null) > 0;
+    }
 
+    public Cursor obtenerPersona(long id) {
+        System.out.println(" ******************* > "+ id);
+        return db.query("persona",
+                new String[]{"_id", "nombre", "telefono", "correo", "genero"},
+                "_id=?", new String[]{id+""}, null, null, null);
+    }
+
+    public Cursor obtenerTodasPersonas() {
+        return db.query("persona",
+                new String[]{"_id", "nombre", "telefono", "correo", "genero"},
+                null, null, null, null, null);
+    }
 
     private static class PersonasDatabaseHelper extends SQLiteOpenHelper {
 
