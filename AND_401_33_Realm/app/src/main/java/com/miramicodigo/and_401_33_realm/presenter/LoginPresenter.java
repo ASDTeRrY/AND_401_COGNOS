@@ -39,14 +39,14 @@ public class LoginPresenter {
     public void queryUser(Realm realm, String userName, String password) {
         sucessLogin = Boolean.FALSE;
         final Collection<User> users = realm.where(User.class).findAll();
-        for (User user : users) {
-            if (user.getUser().equals(userName) && user.getPassword().equals(password)) {
+        for(User user : users) {
+            if(user.getUser().equals(userName) && user.getPassword().equals(password)) {
                 sucessLogin = Boolean.TRUE;
             }
         }
-        if (sucessLogin) {
+        if(sucessLogin) {
             loginView.success();
-        } else {
+        }else{
             loginView.failure();
         }
     }

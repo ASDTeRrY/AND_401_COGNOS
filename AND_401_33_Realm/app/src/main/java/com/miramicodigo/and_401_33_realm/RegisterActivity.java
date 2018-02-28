@@ -34,6 +34,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         etPassword = findViewById(R.id.etRegisterPassword);
         btnRegister = findViewById(R.id.btnRegisterRegistrar);
         btnRegister.setOnClickListener(this);
+
         realm = Realm.getDefaultInstance();
         registerPresenter = new RegisterPresenter(this);
     }

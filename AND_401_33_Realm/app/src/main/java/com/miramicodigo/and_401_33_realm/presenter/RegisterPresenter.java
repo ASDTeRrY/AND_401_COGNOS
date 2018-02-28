@@ -1,6 +1,5 @@
 package com.miramicodigo.and_401_33_realm.presenter;
 
-
 import com.miramicodigo.and_401_33_realm.interfaces.RegisterView;
 import com.miramicodigo.and_401_33_realm.model.User;
 
@@ -29,7 +28,6 @@ public class RegisterPresenter {
             realm.commitTransaction();
             registerView.success();
         } catch (RealmPrimaryKeyConstraintException e) {
-            e.getMessage();
             realm.cancelTransaction();
             registerView.failure();
         }

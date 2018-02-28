@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements LoginView, View.O
         btnLogin.setOnClickListener(this);
         btnRegister.setOnClickListener(this);
         loginPresenter = new LoginPresenter(this);
+
         Realm.init(this);
         realm = Realm.getDefaultInstance();
     }
