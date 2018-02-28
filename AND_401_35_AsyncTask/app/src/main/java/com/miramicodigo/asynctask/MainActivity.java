@@ -1,5 +1,6 @@
 package com.miramicodigo.asynctask;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ProgressDialog dialog;
     private TextView textView;
 
     @Override
@@ -24,10 +26,61 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textView = (TextView) findViewById(R.id.tvResultado);
+        dialog = new ProgressDialog(this);
     }
 
     public void onClick(View view) {
+        DownloadWebPageTask task = new DownloadWebPageTask();
+        task.execute(new String[]{"http://www.instagram.com", "http://www.google.com", "http://www.bolivia.com"});
+    }
 
+    public void toast(View v) {
+        Toast.makeText(
+                getApplicationContext(),
+                "Muestra Toast",
+                Toast.LENGTH_SHORT).show();
+    }
+
+    private class DownloadWebPageTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog.setMessage("Progreso iniciado");
+            dialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String response = "";
+            for(String url : strings) {
+                DefaultHttpClient client = new DefaultHttpClient();
+                HttpGet httpGet = new HttpGet(url);
+                try {
+                    HttpResponse execute = client.execute(httpGet);
+                    InputStream content = execute.getEntity().getContent();
+                    BufferedReader buffer = new BufferedReader(
+                            new InputStreamReader(content)
+                    );
+                    String s = "";
+                    while((s = buffer.readLine()) != null) {
+                        response += s;
+                    }
+                } catch (Exception e) {
+                    System.out.println("ERROR: "+e.getMessage());
+                }
+            }
+            return response;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if (dialog.isShowing()) {
+                dialog.dismiss();
+            }
+            textView.setText(s);
+        }
     }
 
 }
