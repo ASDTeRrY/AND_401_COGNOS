@@ -13,7 +13,14 @@ public class Cronometro implements Runnable {
     private String salida;
 
     public Cronometro(String nombre, TextView etiqueta) {
-
+        textView = etiqueta;
+        salida = "";
+        segundos = 0;
+        minutos = 0;
+        horas = 0;
+        nombrecronometro = nombre;
+        escribirenUI = new Handler();
+        pausado = Boolean.FALSE;
     }
 
     @Override
@@ -22,29 +29,6 @@ public class Cronometro implements Runnable {
             while(Boolean.TRUE) {
                 Thread.sleep(1000);
                 salida = "";
-
-            }
-        }
-        catch (InterruptedException e) {
-            Log.i("Cronometro", "Error en el cronometro " + nombrecronometro + ": " + e.toString());
-        }
-    }
-
-    public void reiniciar() {
-
-    }
-
-    public void pause() {
-
-    }
-
-
-
-
-
-
-    /*
-
                 if( !pausado ) {
                     segundos++;
                     if(segundos == 60) {
@@ -79,6 +63,22 @@ public class Cronometro implements Runnable {
                         Log.i("Cronometro", "Error en el cronometro " + nombrecronometro + " al escribir en la UI: " + e.toString());
                     }
                 }
+            }
+        }
+        catch (InterruptedException e) {
+            Log.i("Cronometro", "Error en el cronometro " + nombrecronometro + ": " + e.toString());
+        }
+    }
 
-      */
+    public void reiniciar() {
+        segundos = 0;
+        minutos = 0;
+        horas = 0;
+        pausado = Boolean.FALSE;
+    }
+
+    public void pause() {
+        pausado = !pausado;
+    }
+
 }
