@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             dialog.setMessage("Progreso iniciado");
+            dialog.setCancelable(false);
             dialog.show();
         }
 
