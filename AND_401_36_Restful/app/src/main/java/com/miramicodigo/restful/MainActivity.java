@@ -44,9 +44,32 @@ public class MainActivity extends AppCompatActivity {
         final GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
         recyclerView.setLayoutManager(layoutManager);
 
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
 
+                if(dy > 0) {
+                    int visibleCount = layoutManager.getChildCount();
+                    int totalItemCount = layoutManager.getItemCount();
+                    int pastVisibleItems = layoutManager.findFirstVisibleItemPosition();
 
+                    if(aptoParaCargar) {
+                        if((visibleCount + pastVisibleItems) >= totalItemCount) {
+                            //Llegamos al final del contenido
+                            aptoParaCargar = false;
+                            offset += 20;
+                            obtenerDatos(offset);
+                        }
+                    }
+                }
+            }
+        });
 
+        retrofit = new Retrofit.Builder()
+                .baseUrl("http://pokeapi.co/api/v2/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
         aptoParaCargar = true;
         offset = 0;
@@ -55,5 +78,30 @@ public class MainActivity extends AppCompatActivity {
 
     private void obtenerDatos(int offset) {
 
+        PokeInterface service = retrofit.create(PokeInterface.class);
+        Call<PokemonResponse> pokemonResponseCall = service.obtenerListaPokemon(20, offset);
+
+        pokemonResponseCall.enqueue(new Callback<PokemonResponse>() {
+            @Override
+            public void onResponse(Call<PokemonResponse> call, Response<PokemonResponse> response) {
+                aptoParaCargar = true;
+                if(response.isSuccessful()) {
+                    PokemonResponse pokemonResponse = response.body();
+                    ArrayList<Pokemon> listaPokemon = pokemonResponse.getResults();
+                    listaPokemonAdapter.adicionarListaPokemon(listaPokemon);
+
+                    for(Pokemon poke: listaPokemon) {
+                        System.out.println("----------> "+poke.getName());
+                        System.out.println("----------> "+poke.getUrl());
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PokemonResponse> call, Throwable t) {
+
+            }
+        });
     }
 }
